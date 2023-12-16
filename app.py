@@ -3,7 +3,7 @@ import requests
 import openai
 
 #dalle api key
-openai.api_key = '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'
+openai.api_key = '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'
 
 
 st.set_page_config(page_title="UFC Fights", layout="wide")
