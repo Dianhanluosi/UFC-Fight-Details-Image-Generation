@@ -1,0 +1,5 @@
+The onlineapp.py is the version hosted on Streamlit Cloud. This app contains an OpenAI API key. If I host a file on Streamlit Cloud with the OpenAI key, OpenAI would automatically disable that key. Therefore, for the web version, there is an additional input to enter an OpenAI API key for it to run.
+
+The app.py file is the local version, which contains the API key.
+
+I will keep this key active for a month and then disable it for safety.
