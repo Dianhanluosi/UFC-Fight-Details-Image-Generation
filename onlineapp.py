@@ -2,9 +2,8 @@ import streamlit as st
 import requests
 import openai
 
-#dalle api key
-openai.api_key = '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'
-
+# alle api key, empty
+openai.api_key = ''
 
 st.set_page_config(page_title="UFC Fights", layout="wide")
 st.title('UFC Fights Details and Generated Image')
@@ -45,6 +44,9 @@ with st.sidebar:
     st.header("Settings")
     season = st.text_input('Enter the year:', value='2023')
 
+    # input for api key
+    openai.api_key = st.text_input('Enter OpenAI API Key:', type='password')
+
     if season:
         schedule = get_fight_schedule(season)
         if schedule:
@@ -61,7 +63,7 @@ with st.sidebar:
                 selected_fight_detail = st.selectbox('Select a Fight Detail:', options=fight_options)
 
 #display fight details + generated image
-if 'selected_fight_detail' in locals():
+if 'selected_fight_detail' in locals() :
     st.subheader("Fight Details")
     selected_fight_info = next((fight for fight in event_details['Fights'] if "{} vs {}".format(fight['Fighters'][0]['FirstName'] + ' ' + fight['Fighters'][0]['LastName'], fight['Fighters'][1]['FirstName'] + ' ' + fight['Fighters'][1]['LastName']) == selected_fight_detail), None)
     
@@ -90,7 +92,7 @@ if 'selected_fight_detail' in locals():
         st.write(f"Winner: {winner}")
 
     #display generated image
-    if " vs " in selected_fight_detail:
+    if " vs " in selected_fight_detail and openai.api_key:
         fighter1, fighter2 = selected_fight_detail.split(" vs ")
         fight_prompt = f"UFC fighter {fighter1} fighting UFC fighter {fighter2} in {selected_fight} event"
         fight_image_url = generate_image(fight_prompt)
